@@ -1,20 +1,81 @@
-@use '../../../_css/queries.scss' as *;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+}
 
 .nav {
   display: flex;
-  gap: calc(var(--base) / 4) var(--base);
+  gap: 20px; /* Spacing between nav items */
   align-items: center;
-  flex-wrap: wrap;
-  opacity: 1;
-  transition: opacity 100ms linear;
-  visibility: visible;
 
-  > * {
-    text-decoration: none;
+  @media (max-width: 768px) {
+    display: none; /* Hide nav items on mobile initially */
+    flex-direction: column;
+    position: fixed; /* Make it fixed to cover the full screen */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff; /* Background for the menu */
+    padding: 20px;
+    z-index: 10;
+    align-items: flex-start; /* Align content to the left */
+    height: 100vh; /* Full screen height */
+    overflow-y: auto; /* Ensure content scrolls if too long */
+  }
+
+  &.open {
+    display: flex; /* Show nav items on mobile when open */
+  }
+}
+
+.hamburger {
+  display: block;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 11; /* Ensure hamburger stays on top of the menu */
+  position: relative; /* So it can be positioned inside the header */
+  margin-left: auto; /* Align the hamburger button to the right */
+
+  @media (min-width: 769px) {
+    display: none; /* Hide hamburger on larger screens */
   }
 }
 
 .hide {
-  opacity: 0;
-  visibility: hidden;
+  display: none;
+}
+
+.nav.open {
+  display: flex; /* Show nav items on mobile when open */
+  justify-content: flex-start; /* Align items to the left */
+  padding: 20px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 12; /* Ensure the X stays above other elements */
+}
+
+.nav-item {
+  margin-left: 10px;
+  padding: 10px 0;
+  width: 100%; /* Make each nav item full width */
+  text-align: left; /* Align text to the left */
+}
+
+@media (min-width: 769px) {
+  .nav {
+    flex-direction: row; /* Align items in a single row */
+    justify-content: flex-end;
+  }
 }
